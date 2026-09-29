@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auton varauskalenteri</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>🚗 Auton varauskalenteri</h1>
+    <button id="new-booking" class="primary">+ Uusi varaus</button>
+  </header>
+
+  <main>
+    <section class="calendar">
+      <div class="calendar-nav">
+        <button id="prev-month" aria-label="Edellinen kuukausi">‹</button>
+        <h2 id="month-title"></h2>
+        <button id="next-month" aria-label="Seuraava kuukausi">›</button>
+        <button id="today" class="ghost">Tänään</button>
+      </div>
+      <div class="weekdays">
+        <span>ma</span><span>ti</span><span>ke</span><span>to</span><span>pe</span><span>la</span><span>su</span>
+      </div>
+      <div id="grid" class="grid"></div>
+      <p class="legend">
+        <span class="chip">Varattu</span>
+        <span class="chip flexible">Varattu, auton saa tarvittaessa</span>
+        <span class="hint">Klikkaa päivää lisätäksesi varauksen, tai varausta muokataksesi sitä.</span>
+      </p>
+    </section>
+
+    <section class="upcoming">
+      <h2>Tulevat varaukset</h2>
+      <ul id="upcoming-list"></ul>
+    </section>
+  </main>
+
+  <dialog id="booking-dialog">
+    <form id="booking-form" method="dialog">
+      <h2 id="dialog-title">Uusi varaus</h2>
+
+      <label>Varaaja
+        <input name="name" required maxlength="100" autocomplete="name" placeholder="Nimi">
+      </label>
+
+      <label class="inline"><input type="checkbox" name="allDay"> Koko päivä(t)</label>
+
+      <div class="row">
+        <label>Alkaa
+          <input type="date" name="startDate" required>
+        </label>
+        <label class="time">klo
+          <input type="time" name="startTime" step="900">
+        </label>
+      </div>
+      <div class="row">
+        <label>Päättyy
+          <input type="date" name="endDate" required>
+        </label>
+        <label class="time">klo
+          <input type="time" name="endTime" step="900">
+        </label>
+      </div>
+
+      <label class="inline"><input type="checkbox" name="flexible"> Auton saa tarvittaessa (esim. opetuskäytössä, kysy)</label>
+
+      <label>Lisätiedot
+        <textarea name="notes" rows="3" maxlength="2000" placeholder="Esim. auto autolabrassa opetuskäytössä, tarvittaessa saa sieltä – soita 040 123 4567"></textarea>
+      </label>
+
+      <p id="form-error" class="error" hidden></p>
+
+      <div class="actions">
+        <button type="button" id="delete-booking" class="danger" hidden>Poista</button>
+        <span class="spacer"></span>
+        <button type="button" id="cancel" class="ghost">Peruuta</button>
+        <button type="submit" class="primary">Tallenna</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
